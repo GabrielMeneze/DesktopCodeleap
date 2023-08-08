@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { useDispatch } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { increment } from '../../features/redux-slice'
+import { increment } from '../../../models/features/redux-slice'
 import "./post.css";
 
 export const PostMethod = (props) => {

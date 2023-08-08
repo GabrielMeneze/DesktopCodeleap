@@ -38,8 +38,5 @@ export function ModalDelete(props) {
                 </Modal.Footer>
             </Modal>
         </>
-        // The above code creates a modal component that prompts the user to confirm
-        // deletion and upon confirmation, it sends a delete request to the server using axios.
-        // Once the request is successful, it reloads the page to show the updated data.
     );
 }

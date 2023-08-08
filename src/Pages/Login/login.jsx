@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux'
-import { getuser } from "../../features/redux-slice";
+import { getuser } from "../../models/features/redux-slice";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./login.css";
 

@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 import { Card } from "../../Components/Card/card"
 import React, { useState, useEffect } from "react"
 import { useSelector } from 'react-redux'
-import { PostMethod } from "../../Components/PostMethod/post"
+import { PostMethod } from "../../Components/Modals/registerModal/post"
 import "./mainscreen.css"
 
 // Defining Mainscreen component

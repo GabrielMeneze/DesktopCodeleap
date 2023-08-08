@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Router } from './routes/routes';
-import { store } from './store/store';
+import { store } from './models/store/store';
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <Provider store={store}>
     <BrowserRouter>
       <Router />
     </BrowserRouter>
   </Provider>,
-  document.getElementById('root')
 );

@@ -1,8 +1,8 @@
 // Import necessary React components and hooks
 import React from "react";
 import { useSelector } from 'react-redux'
-import { ModalDelete } from "../DeleteMethod/delete";
-import { ModalPath } from "../PathMethod/path";
+import { ModalDelete } from "../Modals/deleteModal/delete";
+import { ModalPath } from "../Modals/editModal/path";
 // Import Bootstrap CSS and icons
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
