@@ -14,7 +14,7 @@ export const PostMethod = (props) => {
     // Using React-Redux's 'useDispatch' hook to get access to the Redux store's dispatch function
     const dispatch = useDispatch()
 
-    const username = useSelector(state => state.username)
+    const username = useSelector((state: any)=> state.username)
 
     // Defining a function called 'Post' that takes 'event' as a parameter
     async function HandlePost(event) {
@@ -26,7 +26,7 @@ export const PostMethod = (props) => {
             content: content
           });
           dispatch(increment(response.data.id));
-          window.location.reload(true);
+          window.location.reload();
         } catch (error) {
           console.error(error);
         }
@@ -49,7 +49,6 @@ export const PostMethod = (props) => {
                             <h2>Make a post!</h2>
                             <textarea
                                 className="input1"
-                                type="text"
                                 value={title}
                                 placeholder="Title"
                                 onChange={event => setTitle(event.target.value)}
@@ -58,7 +57,6 @@ export const PostMethod = (props) => {
                         <div className="field">
                             <textarea
                                 className="input2"
-                                type="text"
                                 value={content}
                                 placeholder="What is on your mind?"
                                 onChange={event => setContent(event.target.value)}

@@ -15,7 +15,7 @@ export function ModalPath(props) {
             title,
             content,
           });
-          window.location.reload(true);
+          window.location.reload();
         } catch (error) {
           console.error(error);
         }
@@ -44,7 +44,6 @@ export function ModalPath(props) {
                             {/* This textarea allows the user to edit the post's title */}
                             <textarea
                                 className="input1"
-                                type="text"
                                 value={title}
                                 placeholder="enter the new title"
                                 onChange={event => setTitle(event.target.value)}
@@ -54,7 +53,6 @@ export function ModalPath(props) {
                             {/* This textarea allows the user to edit the post's content */}
                             <textarea
                                 className="input2"
-                                type="text"
                                 value={content}
                                 placeholder="insert the new content"
                                 onChange={event => setContent(event.target.value)}

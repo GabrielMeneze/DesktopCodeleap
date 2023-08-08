@@ -7,14 +7,23 @@ import { useSelector } from 'react-redux'
 import { PostMethod } from "../../Components/Modals/registerModal/post"
 import "./mainscreen.css"
 
+interface CardProps {
+    key: number;
+    content: string;
+    username: string;
+    title: string;
+    cardid: number;
+    id: any
+}
+
 // Defining Mainscreen component
 export const Mainscreen = () => {
 
     // Initializing state variables
-    const [datapost, setDatapost] = useState([]);
+    const [datapost, setDatapost] = useState<CardProps[]>([]);
     const [postmodal, setPostmodal] = React.useState(false)
 
-    const username = useSelector(state => state.username)
+    const username = useSelector((state: any) => state.username)
 
     // GET request to fetch data
     useEffect(() => {

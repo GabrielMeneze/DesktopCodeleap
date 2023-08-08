@@ -9,14 +9,23 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 // Import CSS file for card component
 import "./card.css";
 
+interface CardProps {
+  key: number;
+  content: string;
+  username: string;
+  title: string;
+  cardid: number;
+}
+
 // Define Card component
-export const Card = ({ content, username, title, cardid }) => {
+export const Card: React.FC<CardProps> = ({ content, username, title, cardid }) => {
+
 
   // Define state for delete and edit modals
   const [deletemodal, setDeletemodal] = React.useState(false)
   const [pathmodal, setPathmodal] = React.useState(false)
   // Get current user's ID using useSelector hook
-  const userid = useSelector(state => state.id)
+  const userid = useSelector((state: any) => state.id)
 
   // Render card component
   return (
