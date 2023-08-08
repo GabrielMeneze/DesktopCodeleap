@@ -1,12 +1,18 @@
 import axios from 'axios'
-import React, { useState } from "react"
+import React, { Dispatch, SetStateAction, useState } from "react"
 import { useDispatch } from 'react-redux'
 import { Modal, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { increment } from '../../../models/features/redux-slice'
 import "./post.css";
 
-export const PostMethod = (props) => {
+interface PostModalProps {
+    show: boolean;
+    onHide: () => void;
+    attGetList: Dispatch<SetStateAction<boolean>>;
+}
+
+export const PostMethod: React.FC<PostModalProps> = (props) => {
     // Using React's 'useState' hook to manage the component's state
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
@@ -26,9 +32,11 @@ export const PostMethod = (props) => {
             content: content
           });
           dispatch(increment(response.data.id));
-          window.location.reload();
         } catch (error) {
           console.error(error);
+        }finally{
+            props.attGetList(true)
+            props.onHide()
         }
       }
 
