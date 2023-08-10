@@ -15,7 +15,7 @@ interface CardProps {
   username: string;
   title: string;
   cardid: number;
-  attGetList: any;
+  attGetList: (value: boolean) => void;
 }
 
 // Define Card component

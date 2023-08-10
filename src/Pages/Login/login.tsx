@@ -7,11 +7,11 @@ import "./login.css";
 
 export const Login = () => {
     const dispatch = useDispatch();
-    const [username, setUsername] = useState("");
-    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [username, setUsername] = useState<string>("");
+    const [buttonDisabled, setButtonDisabled] = useState<boolean>(true);
     const navigate = useNavigate();
-
-    const handleUsernameChange = (event) => {
+    
+    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
         setUsername(value);
         setButtonDisabled(value.length === 0);

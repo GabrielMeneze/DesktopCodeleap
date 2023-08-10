@@ -2,12 +2,21 @@ import React, { useState, useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 
+interface ModalPathProps {
+    cardid: number;
+    title: string;
+    content: string;
+    onHide: () => void;
+    attGetList: (value: boolean) => void;
+    show: boolean;
+}
+
 export function ModalPath(props: any) {
-    const [title, setTitle] = useState('')
-    const [content, setContent] = useState('')
+    const [title, setTitle] = useState<string>('')
+    const [content, setContent] = useState<string>('')
 
     // This function sends a patch request to the server to update the post's title and content
-    async function handlePatch(event: any) {
+    async function handlePatch(event: React.FormEvent) {
         event.preventDefault();
     
         try {
@@ -17,17 +26,17 @@ export function ModalPath(props: any) {
           });
         } catch (error) {
           console.error(error);
-        }finally{
-            props.attGetList(true)
-            props.onHide()
+        } finally {
+            props.attGetList(true);
+            props.onHide();
         }
-      }
+    }
 
     // This useEffect hook updates the title and content state variables whenever the corresponding props change
     useEffect(() => {
         setTitle(props.title);
         setContent(props.content);
-    }, [props.title, props.content])
+    }, [props.title, props.content]);
 
     // This component renders a modal with a form that allows the user to edit a post's title and content
     return (
@@ -43,7 +52,6 @@ export function ModalPath(props: any) {
                     <div className="control">
                         <div className="field">
                             <h2>Edit your post</h2>
-                            {/* This textarea allows the user to edit the post's title */}
                             <textarea
                                 className="input1"
                                 value={title}
@@ -52,7 +60,6 @@ export function ModalPath(props: any) {
                             />
                         </div>
                         <div className="field">
-                            {/* This textarea allows the user to edit the post's content */}
                             <textarea
                                 className="input2"
                                 value={content}
@@ -60,14 +67,12 @@ export function ModalPath(props: any) {
                                 onChange={event => setContent(event.target.value)}
                             />
                         </div>
-                        {/* This button submits the form and updates the post's title and content */}
                         <div className="form-btn">
                             <Button disabled={!content || !title} type="submit">Edit</Button>
                         </div>
                     </div>
                 </form>
             </Modal.Body>
-            {/* This button closes the modal */}
             <Modal.Footer>
                 <Button onClick={props.onHide}>Close</Button>
             </Modal.Footer>

@@ -13,7 +13,11 @@ interface CardProps {
     username: string;
     title: string;
     cardid: number;
-    id: any
+    id: number;
+}
+
+interface RootState {
+    username: string;
 }
 
 // Defining Mainscreen component
@@ -21,10 +25,10 @@ export const Mainscreen = () => {
 
     // Initializing state variables
     const [datapost, setDatapost] = useState<CardProps[]>([]);
-    const [postmodal, setPostmodal] = useState(false)
-    const [attGetList, setAttGetList] = useState(false)
+    const [postmodal, setPostmodal] = useState<boolean>(false);
+    const [attGetList, setAttGetList] = useState<boolean>(false);
 
-    const username = useSelector((state: any) => state.username)
+    const username = useSelector((state: RootState) => state.username);
 
     useEffect(() => {
         fetchData();
@@ -36,9 +40,9 @@ export const Mainscreen = () => {
             const res = await axios.get("https://dev.codeleap.co.uk/careers/");
             setDatapost(res.data.results);
         } catch (error) {
-            console.log(error)
+            console.log(error);
         } finally {
-            setAttGetList(false)
+            setAttGetList(false);
         }
     };
 
