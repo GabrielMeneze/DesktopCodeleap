@@ -15,11 +15,11 @@ interface CardProps {
   username: string;
   title: string;
   cardid: number;
+  attGetList: any;
 }
 
 // Define Card component
-export const Card: React.FC<CardProps> = ({ content, username, title, cardid }) => {
-
+export const Card: React.FC<CardProps> = ({ content, username, title, cardid, attGetList }) => {
 
   // Define state for delete and edit modals
   const [deletemodal, setDeletemodal] = React.useState(false)
@@ -50,14 +50,14 @@ export const Card: React.FC<CardProps> = ({ content, username, title, cardid }) 
             <i className="bi bi-pencil" style={{ fontSize: "1.2rem" }}></i>
           </button>
            {/* Edit modal passes necessary props to ModalPath component */}
-          <ModalPath show={pathmodal} onHide={() => setPathmodal(false)} userid={userid} title={title} content={content} cardid={cardid} />
+          <ModalPath show={pathmodal} onHide={() => setPathmodal(false)} userid={userid} title={title} content={content} cardid={cardid} attGetList={attGetList}/>
 
           {/* Delete button opens delete modal */}
           <button className="btn btn-link" onClick={() => { setDeletemodal(true) }}>
             <i className="bi bi-trash" style={{ fontSize: "1.2rem" }}></i>
           </button>
           {/* Delete modal passes necessary props to ModalDelete component */}
-          <ModalDelete show={deletemodal} onHide={() => setDeletemodal(false)} cardid={cardid} />
+          <ModalDelete show={deletemodal} onHide={() => setDeletemodal(false)} cardid={cardid} attGetList={attGetList} />
         </div>
       }
     </div>

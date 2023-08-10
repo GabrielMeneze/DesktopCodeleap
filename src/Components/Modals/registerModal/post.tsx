@@ -23,7 +23,7 @@ export const PostMethod: React.FC<PostModalProps> = (props) => {
     const username = useSelector((state: any)=> state.username)
 
     // Defining a function called 'Post' that takes 'event' as a parameter
-    async function HandlePost(event) {
+    async function HandlePost(event: any) {
         event.preventDefault();
         try {
           const response = await axios.post('https://dev.codeleap.co.uk/careers/', {

@@ -69,6 +69,7 @@ export const Mainscreen = () => {
                                 username={item.username}
                                 title={item.title}
                                 cardid={item.id}
+                                attGetList={setAttGetList}
                             />
                         )
                     })}

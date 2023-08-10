@@ -4,15 +4,17 @@ import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 
 // This component creates a modal that asks the user if they want to delete an item and handles the deletion
-export function ModalDelete(props) {
+export function ModalDelete(props: any) {
 
     // This function is created to handle the deletion of a card
-    const handleDelete = async (cardId) => {
+    const handleDelete = async (cardId: any) => {
         try {
             await axios.delete(`https://dev.codeleap.co.uk/careers/${cardId}/`);
-            window.location.reload();
         } catch (error) {
             console.error(error);
+        }finally{
+            props.attGetList(true)
+            props.onHide()
         }
     }
 

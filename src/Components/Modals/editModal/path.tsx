@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Modal, Button } from 'react-bootstrap'
 import axios from 'axios'
 
-export function ModalPath(props) {
+export function ModalPath(props: any) {
     const [title, setTitle] = useState('')
     const [content, setContent] = useState('')
 
     // This function sends a patch request to the server to update the post's title and content
-    async function handlePatch(event) {
+    async function handlePatch(event: any) {
         event.preventDefault();
     
         try {
@@ -15,9 +15,11 @@ export function ModalPath(props) {
             title,
             content,
           });
-          window.location.reload();
         } catch (error) {
           console.error(error);
+        }finally{
+            props.attGetList(true)
+            props.onHide()
         }
       }
 
