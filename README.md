@@ -16,7 +16,7 @@ The CodeLeap Test Application is a React-based web application constructed with 
 
 To get the development server up and running:
 
-yarn run dev
+# yarn run dev
 
 # 🏗️ Application Structure
 
@@ -48,7 +48,7 @@ yarn run build
 
 Builds the application for production deployment.
 
-##Preview bash
+## Preview bash
 
 yarn run preview
 
