@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { Modal, Button } from 'react-bootstrap'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import axios from 'axios';
 
+// Define the expected props for the ModalPath component
 interface ModalPathProps {
     cardid: number;
     title: string;
@@ -11,37 +12,47 @@ interface ModalPathProps {
     show: boolean;
 }
 
-export function ModalPath(props: any) {
-    const [title, setTitle] = useState<string>('')
-    const [content, setContent] = useState<string>('')
+export function ModalPath({
+    cardid,
+    title: propTitle,
+    content: propContent,
+    onHide,
+    attGetList,
+    show
+}: ModalPathProps) {
+    // Local states to handle title and content of the post
+    const [title, setTitle] = useState<string>(propTitle);
+    const [content, setContent] = useState<string>(propContent);
 
-    // This function sends a patch request to the server to update the post's title and content
+    // Function to send a PATCH request to update the post details
     async function handlePatch(event: React.FormEvent) {
         event.preventDefault();
     
         try {
-          await axios.patch(`https://dev.codeleap.co.uk/careers/${props.cardid}/`, {
-            title,
-            content,
-          });
+            await axios.patch(`https://dev.codeleap.co.uk/careers/${cardid}/`, {
+                title,
+                content,
+            });
         } catch (error) {
-          console.error(error);
+            console.error(error);
         } finally {
-            props.attGetList(true);
-            props.onHide();
+            // Update the post list and close the modal
+            attGetList(true);
+            onHide();
         }
     }
 
-    // This useEffect hook updates the title and content state variables whenever the corresponding props change
+    // Sync local state with props whenever they change
     useEffect(() => {
-        setTitle(props.title);
-        setContent(props.content);
-    }, [props.title, props.content]);
+        setTitle(propTitle);
+        setContent(propContent);
+    }, [propTitle, propContent]);
 
-    // This component renders a modal with a form that allows the user to edit a post's title and content
+    // Render a modal with fields to edit the post title and content
     return (
         <Modal
-            {...props}
+            show={show}
+            onHide={onHide}
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -74,7 +85,7 @@ export function ModalPath(props: any) {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
     );

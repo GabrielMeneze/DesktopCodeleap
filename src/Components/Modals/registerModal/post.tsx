@@ -1,74 +1,72 @@
-import axios from 'axios'
-import React, { Dispatch, SetStateAction, useState } from "react"
-import { useDispatch } from 'react-redux'
-import { Modal, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-import { increment } from '../../../models/features/redux-slice'
+import axios from 'axios';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal, Button } from 'react-bootstrap';
+import { increment } from '../../../models/features/redux-slice';
 import "./post.css";
 
+// Define the properties expected for the component
 interface PostModalProps {
     show: boolean;
     onHide: () => void;
     attGetList: (value: boolean) => void;
 }
 
+// Define the format of the Redux state slice this component accesses
 interface RootState {
     username: string;
 }
 
-export const PostMethod: React.FC<PostModalProps> = (props) => {
+export const PostMethod: React.FC<PostModalProps> = ({ show, onHide, attGetList }) => {
+    // Local state to manage post's title and content
     const [title, setTitle] = useState<string>('');
     const [content, setContent] = useState<string>('');
 
+    // Redux hooks
     const dispatch = useDispatch();
     const username = useSelector((state: RootState) => state.username);
 
-    // Defining a function called 'Post' that takes 'event' as a parameter
-    async function HandlePost(event: React.FormEvent<HTMLFormElement>) {
+    // Generic function to handle state changes based on events
+    const handleChange = (setState: React.Dispatch<React.SetStateAction<string>>) => 
+        (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+            setState(event.target.value);
+        };
+
+    // Function to handle post submission
+    async function handlePost(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        
         try {
+            // Make a POST request to add a new post
             const response = await axios.post('https://dev.codeleap.co.uk/careers/', {
-                username: username,
-                title: title,
-                content: content
+                username,
+                title,
+                content
             });
-            dispatch(increment(response.data.id)); // supondo que increment é uma ação do Redux que aceita um número
+            
+            // Update Redux state with the ID of the new post
+            dispatch(increment(response.data.id));
         } catch (error) {
             console.error(error);
         } finally {
-            props.attGetList(true);
-            props.onHide();
+            // Refresh the post list and close the modal
+            attGetList(true);
+            onHide();
         }
     }
 
-    // Rendering a Modal component from Bootstrap with the specified props and styling
+    // Render the post modal
     return (
-        <Modal
-            {...props}
-            size="lg"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            style={{ fontFamily: "Questrial" }}
-        >
+        <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered style={{ fontFamily: "Questrial" }}>
             <Modal.Body>
-                <form onSubmit={HandlePost} className="form">
+                <form onSubmit={handlePost} className="post-form">
                     <div className="control">
                         <div className="field">
                             <h2>Make a post!</h2>
-                            <textarea
-                                className="input1"
-                                value={title}
-                                placeholder="Title"
-                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setTitle(event.target.value)}
-                            />
+                            <textarea className="input-title" value={title} placeholder="Title" onChange={handleChange(setTitle)} />
                         </div>
                         <div className="field">
-                            <textarea
-                                className="input2"
-                                value={content}
-                                placeholder="What is on your mind?"
-                                onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setContent(event.target.value)}
-                            />
+                            <textarea className="input-content" value={content} placeholder="What is on your mind?" onChange={handleChange(setContent)} />
                         </div>
                         <div className="form-btn">
                             <Button disabled={!content || !title} type="submit">POST</Button>
@@ -77,8 +75,8 @@ export const PostMethod: React.FC<PostModalProps> = (props) => {
                 </form>
             </Modal.Body>
             <Modal.Footer>
-                <Button onClick={props.onHide}>Close</Button>
+                <Button onClick={onHide}>Close</Button>
             </Modal.Footer>
         </Modal>
-    )
+    );
 }
