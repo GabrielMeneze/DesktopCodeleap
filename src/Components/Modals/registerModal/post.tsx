@@ -27,7 +27,7 @@ export const PostMethod: React.FC<PostModalProps> = ({ show, onHide, attGetList 
     const username = useSelector((state: RootState) => state.username);
 
     // Generic function to handle state changes based on events
-    const handleChange = (setState: React.Dispatch<React.SetStateAction<string>>) => 
+    const handleChange = (setState: React.Dispatch<React.SetStateAction<string>>) =>
         (event: React.ChangeEvent<HTMLTextAreaElement>) => {
             setState(event.target.value);
         };
@@ -35,7 +35,7 @@ export const PostMethod: React.FC<PostModalProps> = ({ show, onHide, attGetList 
     // Function to handle post submission
     async function handlePost(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        
+
         try {
             // Make a POST request to add a new post
             const response = await axios.post('https://dev.codeleap.co.uk/careers/', {
@@ -43,7 +43,7 @@ export const PostMethod: React.FC<PostModalProps> = ({ show, onHide, attGetList 
                 title,
                 content
             });
-            
+
             // Update Redux state with the ID of the new post
             dispatch(increment(response.data.id));
         } catch (error) {
@@ -57,26 +57,38 @@ export const PostMethod: React.FC<PostModalProps> = ({ show, onHide, attGetList 
 
     // Render the post modal
     return (
-        <Modal show={show} onHide={onHide} size="lg" aria-labelledby="contained-modal-title-vcenter" centered style={{ fontFamily: "Questrial" }}>
-            <Modal.Body>
-                <form onSubmit={handlePost} className="post-form">
+        <Modal
+            show={show}
+            onHide={onHide}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            style={{ fontFamily: "Questrial", color: "#FFF" }}>
+            <Modal.Header className='text-center'>
+                <h2>Make a post!</h2>
+            </Modal.Header>
+            <form onSubmit={handlePost} className="post-form">
+                <Modal.Body style={{ backgroundColor: "#181818", color: "#FFF" }}>
                     <div className="control">
                         <div className="field">
-                            <h2>Make a post!</h2>
-                            <textarea className="input-title" value={title} placeholder="Title" onChange={handleChange(setTitle)} />
+                            <textarea className="input-title dark-input" value={title} placeholder="Title" onChange={handleChange(setTitle)} />
                         </div>
                         <div className="field">
-                            <textarea className="input-content" value={content} placeholder="What is on your mind?" onChange={handleChange(setContent)} />
-                        </div>
-                        <div className="form-btn">
-                            <Button disabled={!content || !title} type="submit">POST</Button>
+                            <textarea className="input-content dark-input" value={content} placeholder="What is on your mind?" onChange={handleChange(setContent)} />
                         </div>
                     </div>
-                </form>
-            </Modal.Body>
-            <Modal.Footer>
-                <Button onClick={onHide}>Close</Button>
-            </Modal.Footer>
+                </Modal.Body>
+                <Modal.Footer style={{ backgroundColor: "#181818", borderTop: "1px solid #333" }}>
+                    <Button onClick={onHide}>Close</Button>
+                    <Button
+                        disabled={!content || !title}
+                        type="submit"
+                        className={!content || !title ? "btn-secondary" : "btn-success"}>
+                        POST
+                    </Button>
+                
+                </Modal.Footer>
+            </form>
         </Modal>
     );
 }
